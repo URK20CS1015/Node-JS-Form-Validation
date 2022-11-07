@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+</script>
+<script>
+    var app = angular.module('myapp',[]);
+    app.controller('mycontrol',function($scope){
+        $scope.passpattern = /^[a-zA-z0-9]{5,10}$/;
+        })
+</script>
+</head>
+<body align="center" ng-app="myapp" ng-controller="mycontrol">
+    <h1 style="color:blue">User Registration Form</h1><br><br>
+    <form action="/server" method="POST" style="color:blue" name="myform">
+        Name <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name" ng-model="name" required>
+        <span style="color:red" ng-show='myform.name.$dirty && myform.name.$error.required'>
+            Name is required </span>
+        <span style='color:red' ng-show="myform.name.$dirty && myform.name.$error.text">
+            Numbers are Not Accepted..
+        </span><br><br>
+        Password <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" name="pass" ng-model="pass" ng-pattern="passpattern" required>
+        <span style='color:red' ng-show="myform.pass.$dirty && myform.pass.$error.required">
+            Password is required..</span>
+        <span style='color:red' ng-show="myform.pass.$dirty && myform.pass.$error.pattern">
+            Password format is Incorrect..</span><br><br>
+        Age <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="number" name="age" ng-model="age" required>
+        <span style='color:red' ng-show="myform.age.$dirty && myform.age.$error.required">
+            Age is required..</span>
+        <span style='color:red' ng-show="myform.age.$dirty && myform.age.$error.number">
+            Enter Only Numbers..</span><br><br>
+        Mobile Number <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;
+        <input type="number" name="tel" ng-model="tel" required>
+        <span style='color:red' ng-show="myform.tel.$dirty && myform.tel.$error.required">
+            Mobile Number is required..</span>
+        <span style='color:red' ng-show="myform.tel.$dirty && myform.tel.$error.number">
+            Enter Only Numbers..</span><br><br>
+        Email <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="email" name="email" ng-model="email" required>
+        <span style='color:red' ng-show="myform.email.$dirty && myform.email.$error.required">
+            Email is required..</span>
+            <span style='color:red' ng-show="myform.email.$dirty && myform.email.$error.email">
+            Enter the correct email format..</span><br><br>
+        Gender <span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="gender" name="gen" value="male" ng-model="gen" required>
+        <label for="gender">Male</label>
+        <input type="radio" id="gender" name="gen" value="female" ng-model="gen" required>
+        <label for="gender">Female</label>
+        <span style='color:red' ng-show="myform.gen.$dirty && myform.gen.$error.required"></span><br><br>
+        State<span style="color:red">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="states"></label>
+        <select name="state" id="states" required>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Kerala">Kerala</option>
+            </select>
+            <br><br>
+        Skills<span style="color:red" name="skill">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" id="s1" name="skill[]" value="js">
+        <label for="s1">Java Script</label>
+        <input type="checkbox" id="s2" name="skill[]" value="python">
+        <label for="s2">Python</label>
+        <input type="checkbox" id="s3" name="skill[]" value="c++">
+        <label for="s3">C++</label><br><br>
+        <button type="submit" ng-disabled="myform.name.$invalid || myform.email.$invalid || myform.pass.$invalid || myform.gen.$invalid || myform.age.$invalid || myform.tel.$invalid || myform.state.$invalid || myform.skill.$invalid" ng-click="submit()">Submit</button>
+    </form>
+</body>
+</html>
